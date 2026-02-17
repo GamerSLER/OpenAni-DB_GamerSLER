@@ -9,8 +9,11 @@ https://docs.djangoproject.com/en/6.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
-
+from email.policy import default
 from pathlib import Path
+
+from decouple import config
+from django.conf.global_settings import ALLOWED_HOSTS
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +23,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-)e9m2xflh)_lk%wtc_76drn5n2g54fvt_z%k3zx9^%r7wcd^gp'
+SECRET_KEY = config("SECRET_KEY", "")
+DEBUG = config("DEBUG", cast=bool, default=True)
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if SECRET_KEY == "":
+    raise ValueError("SECRET_KEY not set")
 
-ALLOWED_HOSTS = []
+if DEBUG:
+    ALLOWED_HOSTS = ["*"]
+else:
+    ALLOWED_HOSTS = config("ALLOWED_HOSTS", default=[])
+    if isinstance(ALLOWED_HOSTS, str):
+        ALLOWED_HOSTS = ALLOWED_HOSTS.split(",")
 
 
 # Application definition
@@ -37,6 +46,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'rest_framework',
+    'rest_framework.simplejwt',
+
+    'Users',
+    'Torrents',
 ]
 
 MIDDLEWARE = [
@@ -99,19 +114,32 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-ES'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Madrid'
 
 USE_I18N = True
-
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/6.0/howto/static-files/
+ASSETS_DIR = BASE_DIR / 'assets'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [ASSETS_DIR, 'static']
+STATIC_ROOT = ASSETS_DIR / 'collected_static'
 
-STATIC_URL = 'static/'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = ASSETS_DIR / 'media'
+
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AUTH_USER_MODEL = "Usuarios.UsuarioModel"
