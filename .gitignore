@@ -3,3 +3,4 @@
 .idea/
 .venv/
 /OpenAni_DB/OpenAni_DB/__pycache__/
+.idea/*
