@@ -10,7 +10,7 @@ class UserModel(PermissionError, AbstractBaseUser):
     correo = models.EmailField(max_length=100, unique=True, null=False, blank=False, verbose_name="Correo electrónico", help_text="(Obligatorio)")
     # Fabio, cambia lo que gustes en contraseña
     contrasena = models.TextField(min_length=6, unique=True, null=False, blank=False, help_text="(Obligatorio)")
-    imagen = models.TextField()
+    imagen = models.TextField(null=False, blank=False)
     descripcion = models.TextField(max_length=350)
     es_superusuario = models.BooleanField(default=False, verbose_name="¿Es super usuario?")
 
