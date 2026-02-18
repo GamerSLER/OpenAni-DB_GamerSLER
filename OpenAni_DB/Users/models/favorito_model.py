@@ -3,7 +3,6 @@ from django.db.models import BooleanField
 
 
 class FavoritoModel(models.Model):
-
     es_favorito = BooleanField(default=False)
 
     def __str__(self):
