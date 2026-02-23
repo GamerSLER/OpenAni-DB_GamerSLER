@@ -4,11 +4,15 @@ from Users.models import FavoritoModel
 
 
 class FavoritoSerializer(serializers.ModelSerializer):
-    torrent_details = serializers.SerializerMethodField()
-
+    nombre_usuario = serializers.CharField(required=True)
+    nombre_torrent = serializers.CharField(required=True)
+    categoria = serializers.CharField(required=True)
+    enlace = serializers.CharField(required=True)
+    tamano = serializers.CharField(required=True)
+    fecha = serializers.CharField(required=True)
+    seeders = serializers.CharField(required=True)
+    leechers = serializers.CharField(required=True)
 
     class Meta:
         model = FavoritoModel
-        fields = ['id', 'user', 'torrent', 'torrent_details']
-        extra_kwargs = {'user': {'read_only': True}}
-# __pychache__
+        fields = ("nombre_usuario", "nombre_torrent", "categoria", "enlace", "tamano", "fecha", "seeders", "leechers")
