@@ -8,8 +8,8 @@ class TorrentModel(models.Model):
     fecha = models.CharField(max_length = 100, verbose_name='Fecha', blank=False, null=False)
     seeders = models.CharField(max_length = 100, verbose_name='Seeders', blank=False, null=False)
     leechers = models.CharField(max_length = 100, verbose_name='Leechers', blank=False, null=False)
-    likes = models.IntegerField(verbose_name='Likes', blank=False, null=False, default=0)
-    dislikes = models.IntegerField(verbose_name='Dislikes', blank=False, null=False, default=0)
+    # likes = models.IntegerField(verbose_name='Likes', blank=False, null=False, default=0)
+    # dislikes = models.IntegerField(verbose_name='Dislikes', blank=False, null=False, default=0)
 
     class Meta:
         db_table = 'torrent'
