@@ -17,8 +17,10 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     def validate_email(self, value):
         user = UserModel.objects.filter(email=value)
+
         if user:
             raise serializers.ValidationError("Email already registered")
+
         return value
 
     def validate_password(self, value):
