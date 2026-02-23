@@ -5,7 +5,6 @@ class FavoritoModel(models.Model):
     # torrent = models.ForeignKey("Torrents.TorrentModel", on_delete=models.CASCADE)
     nombre_usuario = models.CharField(max_length=10000, verbose_name='Nombre Usuario', blank=False, null=False)
     nombre_torrent = models.CharField(max_length=10000, verbose_name='Nombre Torrent', blank=False, null=False)
-    categoria = models.CharField(max_length = 100, verbose_name='Categoria', blank=False, null=False)
     enlace = models.CharField(max_length=10000, verbose_name='Enlace', blank=False, null=False)
     tamano = models.CharField(max_length = 100, verbose_name='Tamano', blank=False, null=False)
     fecha = models.CharField(max_length = 100, verbose_name='Fecha', blank=False, null=False)
