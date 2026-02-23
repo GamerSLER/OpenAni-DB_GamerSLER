@@ -10,3 +10,4 @@ class FavoritoSerializer(serializers.ModelSerializer):
         model = FavoritoModel
         fields = ['id', 'user', 'torrent', 'torrent_details']
         extra_kwargs = {'user': {'read_only': True}}
+# __pychache__
